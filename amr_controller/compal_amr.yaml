@@ -1,0 +1,16 @@
+# 
+# Simulation time step
+dt: 0.005
+
+# kps: [10, 10, 10, 10, 10, 10, 10, 10]
+kps: [ 8, 8, 8, 8, 8, 8, 8, 8]
+kds: [0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4]
+
+default_angles: [0, 0, 0, 0, 0, 0, 0, 0]
+wheelbase: 0.45
+trackwidth: 0.23
+wheel_radius: 0.0515
+
+cmd_scale: 15
+cmd_init: [-0.5, 0.0, 0.0]
+
