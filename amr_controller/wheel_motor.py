@@ -108,21 +108,9 @@ class MotorControl:
                             "encoder": encoder
                         }
 
-                    # elif command == 0xA2:
-                    #     print(f"ℹ️ Motor 0x{motor_id:X} Speed control ack: {payload.hex()}")
-                    # elif command == 0x81:
-                    #     print(f"ℹ️ Motor 0x{motor_id:X} Stop ack: {payload.hex()}")
-                    # elif command == 0x88:
-                    #     print(f"ℹ️ Motor 0x{motor_id:X} Enable ack: {payload.hex()}")
-                    # elif command == 0x80:
-                    #     print(f"ℹ️ Motor 0x{motor_id:X} Disable ack: {payload.hex()}")
-                    # elif command == 0x9B:
-                    #     print(f"ℹ️ Motor 0x{motor_id:X} Reset ack: {payload.hex()}")
-                    # else:
-                    #     print(f"⚠️ Motor 0x{motor_id:X} Unknown command {command:02X}, payload={payload.hex()}")
 
             except Exception as e:
-                print(f"❌ Error in read_motor_state2: {e}")
+                print(f"Error in read_motor_state2: {e}")
                 break
             
         # print("Timeout waiting for motor response")
