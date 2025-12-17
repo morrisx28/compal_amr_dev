@@ -81,7 +81,7 @@ class DualControlCmd:
         motorMG_velocity = np.zeros(4)
 
         self.history = {name: [] for name in self.motor_MG.keys()}
-        self.time_stamps = []  # 記錄時間軸
+        self.time_stamps = []  
 
     def getAllMotorState(self):
         motorMG_velocity = self.motorMG_velocity
@@ -124,7 +124,7 @@ class DualControlCmd:
         fig, axes = plt.subplots(num_motors, 1, figsize=(8, 2.5 * num_motors), sharex=True)
 
         if num_motors == 1:
-            axes = [axes]  # 確保即使只有一個 motor 也能迭代
+            axes = [axes]  
 
         for ax, (name, speeds) in zip(axes, self.history.items()):
             ax.plot(self.time_stamps, speeds, label=name)
@@ -133,7 +133,7 @@ class DualControlCmd:
             ax.grid(True)
             ax.legend()
 
-        axes[-1].set_xlabel("Time (s)")  # 只有最後一個 subplot 設定 X label
+        axes[-1].set_xlabel("Time (s)")  
         plt.tight_layout()
         plt.show()
 

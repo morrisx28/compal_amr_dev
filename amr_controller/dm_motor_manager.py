@@ -14,7 +14,7 @@ class SteeringMotorManager:
         self.control_cmd = DualControlCmd()
         self.Is_Run = False
         self.run_thread = None
-        self.read_thread = None  # 初始化
+        self.read_thread = None  # init
         self.joint_angles = [0, 0, 0, 0]
         self.kp_list = [3, 3, 3, 3]
         self.kd_list = [0.1, 0.1, 0.1, 0.1]
