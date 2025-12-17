@@ -27,7 +27,7 @@ class SteeringMotorManager:
 
     
     def _run_motor(self):
-        interval = 1.0 / 100  # 150 Hz -> 每次執行間隔 6.67 ms
+        interval = 1.0 / 100  
         prev_time = time.time()
         count = 0
 
@@ -48,7 +48,7 @@ class SteeringMotorManager:
                 time.sleep(sleep_time)
 
     def _read_motor(self):
-        interval = 1.0 / 100  # 150 Hz -> 每次執行間隔 6.67 ms
+        interval = 1.0 / 100
         prev_time_read = time.time()
         count_read = 0
 
