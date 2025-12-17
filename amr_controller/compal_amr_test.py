@@ -8,14 +8,14 @@ import matplotlib.pyplot as plt
 import csv
 from math import atan2, sqrt, pi
 
-from unitree_sdk2py.core.channel import ChannelPublisher, ChannelFactoryInitialize
-from unitree_sdk2py.core.channel import ChannelSubscriber, ChannelFactoryInitialize
-from unitree_sdk2py.idl.default import unitree_go_msg_dds__LowCmd_
-from unitree_sdk2py.idl.default import unitree_go_msg_dds__LowState_
-from unitree_sdk2py.idl.unitree_go.msg.dds_ import LowCmd_
-from unitree_sdk2py.idl.unitree_go.msg.dds_ import LowState_
-from unitree_sdk2py.utils.crc import CRC
-from unitree_sdk2py.utils.thread import RecurrentThread
+from csl_sdk2py.core.channel import ChannelPublisher, ChannelFactoryInitialize
+from csl_sdk2py.core.channel import ChannelSubscriber, ChannelFactoryInitialize
+from csl_sdk2py.idl.default import csl_pineapple_msg_dds__LowCmd_
+from csl_sdk2py.idl.default import csl_pineapple_msg_dds__LowState_
+from csl_sdk2py.idl.csl_pineapple.msg.dds_ import LowCmd_
+from csl_sdk2py.idl.csl_pineapple.msg.dds_ import LowState_
+from csl_sdk2py.utils.crc import CRC
+from csl_sdk2py.utils.thread import RecurrentThread
 import struct
 import gamepad
 
@@ -66,7 +66,7 @@ class Controller:
             self.cmd_init = np.array(config["cmd_init"], dtype=np.float32)
 
         self.pad = gamepad.control_gamepad( 3, [-3.0, 3.0], [-3.0, 3.0], [-3.14, 3.14], [3.0, 3.0, 3.14, 0.05])
-        self.low_cmd = unitree_go_msg_dds__LowCmd_()  
+        self.low_cmd = csl_pineapple_msg_dds__LowCmd_()  
         self.low_state = None  
 
 
@@ -182,7 +182,7 @@ class Controller:
         x, y, th, vx, vy, wz = self.x_ekf
         c, s = np.cos(th), np.sin(th)
 
-        # 狀態預測
+        # state predict
         x_pred  = x  + (vx*c - vy*s) * dt
         y_pred  = y  + (vx*s + vy*c) * dt
         th_pred = self._wrap_angle(th + wz*dt)
@@ -192,7 +192,7 @@ class Controller:
 
         self.x_ekf = np.array([x_pred, y_pred, th_pred, vx_pred, vy_pred, wz_pred])
 
-        # 雅可比 F（對上一時刻狀態偏微分）
+        # Jacobian F
         F = np.eye(6)
         F[0,2] = (-vx*s - vy*c) * dt
         F[0,3] =  c * dt
@@ -202,12 +202,11 @@ class Controller:
         F[1,3] =  s * dt
         F[1,4] =  c * dt
 
-        F[2,5] = dt  # theta 對 wz
+        F[2,5] = dt  
 
-        # 雜訊（時間尺度調整）
+        # noice
         Q = self.Q_base * max(dt, 1e-3)
 
-        # 協方差預測
         self.P_ekf = F @ self.P_ekf @ F.T + Q
     
     def ekf_update_enc(self, vx_enc, vy_enc, wz_enc):
