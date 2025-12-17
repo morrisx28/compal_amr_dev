@@ -1,11 +1,11 @@
-from unitree_sdk2py.core.channel import ChannelSubscriber, ChannelPublisher
-from unitree_sdk2py.core.channel import ChannelFactoryInitialize
+from csl_sdk2py.core.channel import ChannelSubscriber, ChannelPublisher
+from csl_sdk2py.core.channel import ChannelFactoryInitialize
 
-from unitree_sdk2py.idl.unitree_go.msg.dds_ import LowCmd_
-from unitree_sdk2py.idl.unitree_go.msg.dds_ import LowState_
-from unitree_sdk2py.idl.default import unitree_go_msg_dds__LowState_
+from csl_sdk2py.idl.csl_pineapple.msg.dds_ import LowCmd_
+from csl_sdk2py.idl.csl_pineapple.msg.dds_ import LowState_
+from csl_sdk2py.idl.default import csl_pineapple_msg_dds__LowState_
 
-from Motor_Manager_origin_v1 import *
+from dm_motor_manager import *
 from wheel_motor_manager import *
 
 import numpy as np
@@ -42,7 +42,7 @@ class DDSHandler:
         self.low_state_threading = threading.Thread(target=self.PublishLowState)
         self.low_state_threading.start()
         print("low_state_start")
-        self.low_state = unitree_go_msg_dds__LowState_()
+        self.low_state = csl_pineapple_msg_dds__LowState_()
 
 
         self.sub = ChannelSubscriber("rt/lowcmd", LowCmd_)
@@ -96,7 +96,7 @@ class DDSHandler:
             
             # print("wheel_motor_vel",wheel_motor_vel)
 
-            low_state = unitree_go_msg_dds__LowState_()
+            low_state = csl_pineapple_msg_dds__LowState_()
             # IMU
 
             low_state.head[0] = 0x00
