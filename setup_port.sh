@@ -5,8 +5,6 @@ UDEV_RULE_FILE="/etc/udev/rules.d/99-reddog-serial.rules"
 
 # Create or overwrite the udev rule file with the following content
 sudo bash -c "cat > $UDEV_RULE_FILE" <<EOL
-# Udev rules for RedDog USB Serial Devices
-# Reddog
 SUBSYSTEM=="tty", ATTRS{idVendor}=="2e88", ATTRS{idProduct}=="4603", KERNEL=="ttyACM0", SYMLINK+="ttywheel", MODE="0666"
 
 # Imu
