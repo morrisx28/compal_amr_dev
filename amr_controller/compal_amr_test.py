@@ -366,7 +366,7 @@ class Controller:
             total_vx = vx + delta_vx
             total_vy = vy + delta_vy
 
-            speed = sqrt(total_vx**2 + total_vy**2)
+            speed = sqrt(total_vx**2 + total_vy**2) / self.wheel_radius
             angle = atan2(total_vy, total_vx)
             angle, speed = self.normalize(angle, speed)
 
